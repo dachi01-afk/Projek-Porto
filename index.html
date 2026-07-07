@@ -194,6 +194,91 @@
     </div>
   </section>
 
+  <!-- Projects -->
+  <section id="projects" class="py-20 bg-black">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Featured <span class="text-purple-400">Projects</span></h2>
+
+      <div class="grid md:grid-cols-2 gap-8">
+
+        <!-- Project Card 1 -->
+        <div class="project-card bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+          <div class="h-48 bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
+            <span class="text-purple-400 text-lg">Project Screenshot</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-white mb-2">E-Commerce API</h3>
+            <p class="text-gray-400 mb-4">RESTful API for e-commerce platform with authentication, product management, and payment integration.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 text-xs bg-purple-500/20 text-purple-300 rounded-full">Node.js</span>
+              <span class="px-3 py-1 text-xs bg-blue-500/20 text-blue-300 rounded-full">Express</span>
+              <span class="px-3 py-1 text-xs bg-green-500/20 text-green-300 rounded-full">MongoDB</span>
+              <span class="px-3 py-1 text-xs bg-yellow-500/20 text-yellow-300 rounded-full">JWT</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors text-sm">🔗 GitHub →</a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">🌐 Live Demo →</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Card 2 -->
+        <div class="project-card bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+          <div class="h-48 bg-gradient-to-br from-blue-900/40 to-purple-900/40 flex items-center justify-center">
+            <span class="text-blue-400 text-lg">Project Screenshot</span>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-white mb-2">AI Chatbot</h3>
+            <p class="text-gray-400 mb-4">Intelligent chatbot powered by LLM with context-aware responses and conversation history tracking.</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+              <span class="px-3 py-1 text-xs bg-purple-500/20 text-purple-300 rounded-full">Python</span>
+              <span class="px-3 py-1 text-xs bg-blue-500/20 text-blue-300 rounded-full">FastAPI</span>
+              <span class="px-3 py-1 text-xs bg-green-500/20 text-green-300 rounded-full">LangChain</span>
+              <span class="px-3 py-1 text-xs bg-red-500/20 text-red-300 rounded-full">OpenAI</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="#" class="text-purple-400 hover:text-purple-300 transition-colors text-sm">🔗 GitHub →</a>
+              <a href="#" class="text-gray-400 hover:text-white transition-colors text-sm">🌐 Live Demo →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="py-20 bg-gray-950">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Get In <span class="text-purple-400">Touch</span></h2>
+
+      <form class="max-w-xl mx-auto space-y-6">
+        <div>
+          <label for="name" class="block text-gray-400 mb-2">Name</label>
+          <input type="text" id="name" required
+            class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors"
+            placeholder="Your Name" />
+        </div>
+        <div>
+          <label for="email" class="block text-gray-400 mb-2">Email</label>
+          <input type="email" id="email" required
+            class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors"
+            placeholder="your@email.com" />
+        </div>
+        <div>
+          <label for="message" class="block text-gray-400 mb-2">Message</label>
+          <textarea id="message" rows="5" required
+            class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors resize-none"
+            placeholder="Your message..."></textarea>
+        </div>
+        <button type="submit"
+          class="w-full py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:scale-[1.02] hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
