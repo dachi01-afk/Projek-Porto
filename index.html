@@ -18,6 +18,28 @@
       background-size: 200% 200%;
       animation: gradient 8s ease infinite;
     }
+
+    .skill-card {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .skill-card:nth-child(1) { animation-delay: 0.1s; }
+    .skill-card:nth-child(2) { animation-delay: 0.2s; }
+    .skill-card:nth-child(3) { animation-delay: 0.3s; }
+    .skill-card:nth-child(4) { animation-delay: 0.4s; }
+    .skill-card:nth-child(5) { animation-delay: 0.5s; }
+    .skill-card:nth-child(6) { animation-delay: 0.6s; }
+    .skill-card:nth-child(7) { animation-delay: 0.7s; }
+    .skill-card:nth-child(8) { animation-delay: 0.8s; }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
@@ -92,6 +114,82 @@
             problems into elegant solutions.
           </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="py-20 bg-gray-950">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">My <span class="text-purple-400">Skills</span></h2>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+        <!-- Skill Card -->
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">🟢</div>
+          <h3 class="text-white font-semibold mb-2">HTML & CSS</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 90%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">💻</div>
+          <h3 class="text-white font-semibold mb-2">JavaScript</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 80%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">⚙️</div>
+          <h3 class="text-white font-semibold mb-2">Node.js</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 85%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">🐍</div>
+          <h3 class="text-white font-semibold mb-2">Python</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 88%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">🗄️</div>
+          <h3 class="text-white font-semibold mb-2">SQL & MongoDB</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 82%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">☁️</div>
+          <h3 class="text-white font-semibold mb-2">Docker</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 75%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">🤖</div>
+          <h3 class="text-white font-semibold mb-2">AI / ML</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 70%"></div>
+          </div>
+        </div>
+
+        <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
+          <div class="text-4xl mb-3">🐙</div>
+          <h3 class="text-white font-semibold mb-2">Git & GitHub</h3>
+          <div class="w-full bg-gray-800 rounded-full h-2">
+            <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full" style="width: 90%"></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
