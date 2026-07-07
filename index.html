@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <title>Portfolio</title>
-   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
+<title>Jimi Firgo Dakhi | Portfolio</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { scroll-behavior: smooth; }
@@ -48,7 +48,25 @@
     ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
     ::-webkit-scrollbar-thumb:hover { background: #555; }
 
-    /* Responsive text adjustments */
+    /* Fallback: ensure responsive layout works even if Tailwind CDN fails */
+    @media (min-width: 768px) {
+      .desktop-nav { display: flex !important; }
+      .mobile-toggle { display: none !important; }
+      .mobile-menu { display: none !important; }
+      .about-layout { flex-direction: row !important; }
+    }
+    @media (max-width: 767px) {
+      .desktop-nav { display: none !important; }
+      .project-grid { grid-template-columns: 1fr !important; }
+    }
+    @media (min-width: 1024px) {
+      .skill-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+    }
+    @media (min-width: 768px) {
+      .skill-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+      .footer-layout { flex-direction: row !important; }
+    }
     @media (max-width: 640px) {
       .skill-card { padding: 1rem; }
     }
@@ -57,16 +75,16 @@
 <body>
   <header class="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-black/60 border-b border-white/10">
     <nav class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="text-xl font-bold text-white">Portfolio.</a>
+      <a href="#" class="text-xl font-bold text-white">Jimi.</a>
 
-      <ul class="hidden md:flex space-x-8 text-gray-300">
+      <ul class="desktop-nav hidden md:flex space-x-8 text-gray-300">
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
 
-      <button id="menu-btn" class="md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
+      <button id="menu-btn" class="mobile-toggle md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
         <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
@@ -76,7 +94,7 @@
       </button>
     </nav>
 
-    <div id="mobile-menu" class="hidden md:hidden bg-black/90 border-t border-white/10">
+    <div id="mobile-menu" class="mobile-menu hidden md:hidden bg-black/90 border-t border-white/10">
       <ul class="flex flex-col items-center py-4 space-y-4 text-gray-300">
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
@@ -94,9 +112,9 @@
     <div class="relative z-10 text-center px-6">
       <p class="text-purple-400 text-lg mb-4">Hello, I'm</p>
       <h1 class="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-        John Doe
+        Jimi Firgo Dakhi
       </h1>
-      <p class="text-xl md:text-2xl text-gray-400 mb-8">Backend Developer & AI Enthusiast</p>
+      <p class="text-xl md:text-2xl text-gray-400 mb-8">Backend Developer</p>
       <div class="flex gap-4 justify-center">
         <a href="#contact" class="px-8 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-full font-medium hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
           Contact Me
@@ -112,23 +130,24 @@
   <section id="about" class="py-20 bg-black">
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">About <span class="text-purple-400">Me</span></h2>
-      <div class="flex flex-col md:flex-row items-center gap-10">
+      <div class="about-layout flex flex-col md:flex-row items-center gap-10">
         <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border-4 border-purple-500/30 overflow-hidden flex-shrink-0">
-          <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=john&backgroundColor=transparent" alt="avatar" class="w-full h-full object-cover" />
+          <img src="https://api.dicebear.com/9.x/avataaars/svg?seed=jimi&backgroundColor=transparent" alt="Jimi Firgo Dakhi" class="w-full h-full object-cover" />
         </div>
-        <div class="text-gray-400 text-lg leading-relaxed">
-          <p class="mb-4">
-            I'm a passionate <span class="text-purple-400">Backend Developer</span> and
-            <span class="text-blue-400">AI Enthusiast</span> with a strong foundation in
-            building scalable web applications and intelligent systems.
-          </p>
-          <p>
-            Currently deepening my expertise at <span class="text-white">Maxy Academy</span>,
-            I specialize in crafting robust APIs, optimizing databases, and exploring
-            the intersection of AI and backend architecture. I love turning complex
-            problems into elegant solutions.
-          </p>
-        </div>
+      <div class="text-gray-400 text-lg leading-relaxed">
+        <p class="mb-4">
+          I'm a <span class="text-purple-400">Backend Developer</span> passionate about building reliable, scalable, and maintainable web applications.
+        </p>
+        <p class="mb-4">
+          I recently completed my Informatics Engineering degree and gained practical experience through internships as a <span class="text-blue-400">Junior Web Developer</span> and <span class="text-blue-400">QC Intern</span>. These opportunities allowed me to work on backend development, API implementation, database management, software testing, debugging, and technical documentation while collaborating within professional development teams.
+        </p>
+        <p class="mb-4">
+          I enjoy designing backend systems that not only function well but are also maintainable and aligned with real business needs. To improve productivity and accelerate development, I leverage <span class="text-white">AI-assisted development</span> as part of my workflow while ensuring every solution is fully understood, validated, and follows software engineering best practices.
+        </p>
+        <p>
+          I believe that great software is built through continuous learning, collaboration, and a strong understanding of both technology and business requirements. My goal is to grow as a Backend Developer and contribute to building software that creates meaningful impact.
+        </p>
+      </div>
       </div>
     </div>
   </section>
@@ -138,7 +157,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">My <span class="text-purple-400">Skills</span></h2>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="skill-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
         <!-- Skill Card -->
         <div class="skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300">
@@ -214,7 +233,7 @@
     <div class="max-w-6xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Featured <span class="text-purple-400">Projects</span></h2>
 
-      <div class="grid md:grid-cols-2 gap-8">
+      <div class="project-grid grid md:grid-cols-2 gap-8">
 
         <!-- Project Card 1 -->
         <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
@@ -296,8 +315,8 @@
 
   <!-- Footer -->
   <footer class="py-8 bg-black border-t border-gray-800">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
-      <p class="text-gray-500 text-sm">&copy; 2026 John Doe. All rights reserved.</p>
+    <div class="footer-layout max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-sm">&copy; 2026 Jimi Firgo Dakhi. All rights reserved.</p>
       <div class="flex gap-6">
         <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors text-lg">GitHub</a>
         <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors text-lg">LinkedIn</a>
