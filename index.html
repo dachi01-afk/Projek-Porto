@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio</title>
+   <title>Portfolio</title>
+   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html { scroll-behavior: smooth; }
@@ -65,9 +66,12 @@
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
 
-      <button id="menu-btn" class="md:hidden text-white focus:outline-none">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <button id="menu-btn" class="md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
+        <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
         </svg>
       </button>
     </nav>
@@ -213,7 +217,7 @@
       <div class="grid md:grid-cols-2 gap-8">
 
         <!-- Project Card 1 -->
-        <div class="project-card bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+        <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
           <div class="h-48 bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
             <span class="text-purple-400 text-lg">Project Screenshot</span>
           </div>
@@ -234,7 +238,7 @@
         </div>
 
         <!-- Project Card 2 -->
-        <div class="project-card bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
+        <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
           <div class="h-48 bg-gradient-to-br from-blue-900/40 to-purple-900/40 flex items-center justify-center">
             <span class="text-blue-400 text-lg">Project Screenshot</span>
           </div>
@@ -263,7 +267,7 @@
     <div class="max-w-4xl mx-auto px-6">
       <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Get In <span class="text-purple-400">Touch</span></h2>
 
-      <form class="max-w-xl mx-auto space-y-6">
+      <form class="max-w-xl mx-auto space-y-6" onsubmit="event.preventDefault(); alert('Thank you for your message! I will get back to you soon.');">
         <div>
           <label for="name" class="block text-gray-400 mb-2">Name</label>
           <input type="text" id="name" required
@@ -305,13 +309,21 @@
   <script>
     const menuBtn = document.getElementById('menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
 
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
+      iconOpen.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
     });
 
     mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        iconOpen.classList.remove('hidden');
+        iconClose.classList.add('hidden');
+      });
     });
   </script>
 </body>
