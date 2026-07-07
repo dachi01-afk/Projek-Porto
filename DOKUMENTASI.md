@@ -64,7 +64,7 @@ Setiap elemen HTML adalah sebuah kotak yang terdiri dari: `content` → `padding
 |----------|--------------|------------|
 | `padding` | `.px-6, .py-20, .p-6` (Tailwind) | Ruang di dalam elemen |
 | `margin` | `.mx-auto, .mb-4, .gap-6` (Tailwind) | Ruang di luar elemen |
-| `border` | `border border-gray-800` (baris 163) | Garis tepi kartu skill |
+| `border` | `border border-gray-800` (baris 162) | Garis tepi kartu skill |
 | `width` / `height` | `w-48 h-48` (baris 134) | Ukuran avatar |
 
 **Pertanyaan mentor:** "Apa bedanya padding dan margin?"
@@ -244,9 +244,9 @@ Framework CSS utility-based. Kita tidak menulis CSS custom, tapi menggabungkan c
 |-------------|--------|----------------|
 | Header / Navigation | ✅ | Baris 76-105 |
 | About Me | ✅ | Baris 130-153 |
-| Skills | ✅ | Baris 156-229 |
-| Projects / Experience | ✅ | Baris 232-282 |
-| Contact Section | ✅ | Baris 285-314 |
+| Skills | ✅ | Baris 156-227 |
+| Projects / Experience | ✅ | Baris 234-320 |
+| Contact Section | ✅ | Baris 323-360 |
 | Semantic HTML | ✅ | header, nav, section, footer, h1-h3, form |
 | CSS Box Model | ✅ | Padding, margin, border, width, height |
 | Flexbox / Grid | ✅ | Navbar, About, Skills Grid, Projects Grid |
@@ -254,3 +254,4 @@ Framework CSS utility-based. Kita tidak menulis CSS custom, tapi menggabungkan c
 | CSS Transition | ✅ | Hover button, card, link, form input |
 | Mobile-First Responsive | ✅ | Breakpoints md:, lg:, CSS fallback (baris 52-72) |
 | CSS Library (Tailwind) | ✅ | CDN (baris 8), min 2 komponen: navbar, card, button, form |
+| Skills Akurat per Stack | ✅ | PHP/Laravel, Tailwind, Blade, MySQL, REST API, Git |
