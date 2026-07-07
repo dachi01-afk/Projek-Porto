@@ -40,6 +40,17 @@
         transform: translateY(0);
       }
     }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #000; }
+    ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+    /* Responsive text adjustments */
+    @media (max-width: 640px) {
+      .skill-card { padding: 1rem; }
+    }
   </style>
 </head>
 <body>
@@ -278,6 +289,18 @@
       </form>
     </div>
   </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-black border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-gray-500 text-sm">&copy; 2026 John Doe. All rights reserved.</p>
+      <div class="flex gap-6">
+        <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors text-lg">GitHub</a>
+        <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors text-lg">LinkedIn</a>
+        <a href="#" class="text-gray-500 hover:text-purple-400 transition-colors text-lg">Instagram</a>
+      </div>
+    </div>
+  </footer>
 
   <script>
     const menuBtn = document.getElementById('menu-btn');
