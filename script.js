@@ -252,7 +252,7 @@ function initCharts() {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false }
         },
@@ -261,11 +261,11 @@ function initCharts() {
             beginAtZero: true,
             max: 100,
             grid: { color: gridColor },
-            ticks: { color: textColor }
+            ticks: { color: textColor, font: { size: 10 } }
           },
           x: {
             grid: { display: false },
-            ticks: { color: textColor, font: { size: 10 } }
+            ticks: { color: textColor, font: { size: 9 } }
           }
         }
       }
@@ -287,7 +287,7 @@ function initCharts() {
             backgroundColor: 'rgba(168, 85, 247, 0.1)',
             fill: true,
             tension: 0.4,
-            pointRadius: 4
+            pointRadius: 3
           },
           {
             label: 'CSS',
@@ -296,7 +296,7 @@ function initCharts() {
             backgroundColor: 'rgba(59, 130, 246, 0.1)',
             fill: true,
             tension: 0.4,
-            pointRadius: 4
+            pointRadius: 3
           },
           {
             label: 'JavaScript',
@@ -305,16 +305,16 @@ function initCharts() {
             backgroundColor: 'rgba(34, 197, 94, 0.1)',
             fill: true,
             tension: 0.4,
-            pointRadius: 4
+            pointRadius: 3
           }
         ]
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
-            labels: { color: textColor, font: { size: 11 } }
+            labels: { color: textColor, font: { size: 10 } }
           }
         },
         scales: {
@@ -322,11 +322,11 @@ function initCharts() {
             beginAtZero: true,
             max: 100,
             grid: { color: gridColor },
-            ticks: { color: textColor }
+            ticks: { color: textColor, font: { size: 10 } }
           },
           x: {
             grid: { color: gridColor },
-            ticks: { color: textColor, font: { size: 10 } }
+            ticks: { color: textColor, font: { size: 9 } }
           }
         }
       }
@@ -349,11 +349,11 @@ function initCharts() {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'bottom',
-            labels: { color: textColor, font: { size: 11 }, padding: 12 }
+            labels: { color: textColor, font: { size: 10 }, padding: 8 }
           }
         }
       }
@@ -387,7 +387,7 @@ function initCharts() {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             stacked: true,
@@ -398,12 +398,12 @@ function initCharts() {
             stacked: true,
             beginAtZero: true,
             grid: { color: gridColor },
-            ticks: { color: textColor }
+            ticks: { color: textColor, font: { size: 10 } }
           }
         },
         plugins: {
           legend: {
-            labels: { color: textColor, font: { size: 11 } }
+            labels: { color: textColor, font: { size: 10 } }
           }
         }
       }
@@ -414,18 +414,6 @@ function initCharts() {
   const scatterCtx = document.getElementById('scatterChart');
   if (scatterCtx) {
     const projects = ['LMS', 'Overtime', 'Attendance', 'Antrian'];
-    const scatterData = projects.map((name, i) => {
-      return {
-        label: name,
-        data: [
-          { x: i + 1, y: 40 + Math.random() * 40 },
-          { x: i + 1.2, y: 30 + Math.random() * 30 },
-          { x: i + 1.4, y: 20 + Math.random() * 20 }
-        ],
-        backgroundColor: ['rgba(168, 85, 247, 0.8)', 'rgba(59, 130, 246, 0.8)', 'rgba(34, 197, 94, 0.8)'][i]
-      };
-    });
-
     const allPoints = [];
     projects.forEach((name, i) => {
       for (let j = 0; j < 5; j++) {
@@ -450,7 +438,7 @@ function initCharts() {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             type: 'linear',

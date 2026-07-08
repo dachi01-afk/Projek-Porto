@@ -63,15 +63,13 @@ body { font-family: 'Inter', sans-serif; }
 .chart-container {
   position: relative;
   width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
+  height: 220px;
 }
 
 .chart-container-wide {
   position: relative;
   width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
+  height: 280px;
 }
 
 #greeting {
