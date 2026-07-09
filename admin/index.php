@@ -2,7 +2,8 @@
 require_once __DIR__ . '/sidebar.php';
 require_once __DIR__ . '/../connection.php';
 
-$projectCount = $conn->query("SELECT COUNT(*) as total FROM projects")->fetch_assoc()['total'];
+$countResult = $conn->query("SELECT COUNT(*) as total FROM projects");
+$projectCount = $countResult ? $countResult->fetch_assoc()['total'] : 0;
 $categoryCount = $conn->query("SELECT category, COUNT(*) as total FROM projects GROUP BY category");
 
 $categories = [];
@@ -28,7 +29,7 @@ while ($row = $categoryCount->fetch_assoc()) {
       </div>
       <div class="bg-gray-900/50 border border-gray-800 rounded-xl p-6">
         <p class="text-gray-400 text-sm">With Files</p>
-        <p class="text-3xl font-bold text-white mt-2"><?php echo $conn->query("SELECT COUNT(*) as total FROM projects WHERE file_path IS NOT NULL")->fetch_assoc()['total']; ?></p>
+        <p class="text-3xl font-bold text-white mt-2"><?php $filesResult = $conn->query("SELECT COUNT(*) as total FROM projects WHERE file_path IS NOT NULL"); echo $filesResult ? $filesResult->fetch_assoc()['total'] : 0; ?></p>
       </div>
     </div>
 

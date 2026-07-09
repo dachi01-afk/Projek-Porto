@@ -3,13 +3,13 @@ require_once __DIR__ . '/sidebar.php';
 require_once __DIR__ . '/../connection.php';
 
 $errors = [];
-$success = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = trim($_POST['title'] ?? '');
   $description = trim($_POST['description'] ?? '');
   $tech_raw = trim($_POST['tech'] ?? '');
   $category = trim($_POST['category'] ?? '');
+  $github_url = trim($_POST['github_url'] ?? '');
 
   if (empty($title)) $errors[] = 'Title wajib diisi.';
   if (empty($description)) $errors[] = 'Description wajib diisi.';
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         $upload_dir = __DIR__ . '/../uploads/';
         if (!is_dir($upload_dir)) {
-          mkdir($upload_dir, 0777, true);
+          mkdir($upload_dir, 0755, true);
         }
         $filename = time() . '_' . basename($_FILES['file']['name']);
         $dest = $upload_dir . $filename;
@@ -46,8 +46,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (empty($errors)) {
-    $stmt = $conn->prepare("INSERT INTO projects (title, description, tech, category, file_path) VALUES (?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssss", $title, $description, $tech, $category, $file_path);
+    $stmt = $conn->prepare("INSERT INTO projects (title, description, tech, category, github_url, file_path) VALUES (?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssss", $title, $description, $tech, $category, $github_url, $file_path);
     $stmt->execute();
     $stmt->close();
     $conn->close();
@@ -90,6 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <option value="Frontend" <?php echo ($category ?? '') === 'Frontend' ? 'selected' : ''; ?>>Frontend</option>
           <option value="Fullstack" <?php echo ($category ?? '') === 'Fullstack' ? 'selected' : ''; ?>>Fullstack</option>
         </select>
+      </div>
+      <div>
+        <label class="block text-gray-400 mb-2">GitHub URL</label>
+        <input type="url" name="github_url" value="<?php echo htmlspecialchars($github_url ?? ''); ?>" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors" placeholder="https://github.com/username/repo" />
       </div>
       <div>
         <label class="block text-gray-400 mb-2">File (optional — PDF, JPG, PNG, max 2MB)</label>

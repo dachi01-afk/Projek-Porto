@@ -34,7 +34,7 @@ while ($row = $result->fetch_assoc()) {
     "title" => $row['title'],
     "desc" => $row['description'],
     "tech" => $tech,
-    "link" => $row['file_path'] ? $row['file_path'] : "#",
+    "link" => $row['github_url'] ?: "#",
     "icon" => "📁",
     "category" => $row['category'],
     "file_path" => $row['file_path']
@@ -81,7 +81,7 @@ function renderProjectCard($title, $desc, $tech, $link, $icon, $category, $file_
   $categoryLabel = getCategoryLabel($category);
   $downloadLink = '';
   if ($file_path) {
-    $downloadLink = '<a href="' . $file_path . '" download class="text-green-400 hover:text-green-300 transition-colors text-sm">📎 Download →</a>';
+    $downloadLink = '<a href="' . htmlspecialchars($file_path) . '" download class="text-green-400 hover:text-green-300 transition-colors text-sm">📎 Download →</a>';
   }
   return '
     <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">

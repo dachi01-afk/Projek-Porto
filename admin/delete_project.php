@@ -12,6 +12,7 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $result = $stmt->get_result();
 $project = $result->fetch_assoc();
+$stmt->close();
 
 if (!$project) {
   header('Location: projects.php?error=Project not found');

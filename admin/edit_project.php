@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $description = trim($_POST['description'] ?? '');
   $tech_raw = trim($_POST['tech'] ?? '');
   $category = trim($_POST['category'] ?? '');
+  $github_url = trim($_POST['github_url'] ?? '');
 
   if (empty($title)) $errors[] = 'Title wajib diisi.';
   if (empty($description)) $errors[] = 'Description wajib diisi.';
@@ -46,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           if (file_exists($old)) unlink($old);
         }
         $upload_dir = __DIR__ . '/../uploads/';
-        if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+        if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
         $filename = time() . '_' . basename($_FILES['file']['name']);
         $dest = $upload_dir . $filename;
         if (move_uploaded_file($_FILES['file']['tmp_name'], $dest)) {
@@ -59,8 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (empty($errors)) {
-    $stmt = $conn->prepare("UPDATE projects SET title=?, description=?, tech=?, category=?, file_path=? WHERE id=?");
-    $stmt->bind_param("sssssi", $title, $description, $tech, $category, $file_path, $id);
+    $stmt = $conn->prepare("UPDATE projects SET title=?, description=?, tech=?, category=?, github_url=?, file_path=? WHERE id=?");
+    $stmt->bind_param("ssssssi", $title, $description, $tech, $category, $github_url, $file_path, $id);
     $stmt->execute();
     $stmt->close();
     $conn->close();
@@ -110,10 +111,14 @@ if ($project['tech']) {
         </select>
       </div>
       <div>
+        <label class="block text-gray-400 mb-2">GitHub URL</label>
+        <input type="url" name="github_url" value="<?php echo htmlspecialchars($_POST['github_url'] ?? $project['github_url'] ?? ''); ?>" class="w-full px-4 py-3 bg-gray-900 border border-gray-800 rounded-lg text-white placeholder-gray-600 focus:outline-none focus:border-purple-500 transition-colors" placeholder="https://github.com/username/repo" />
+      </div>
+      <div>
         <label class="block text-gray-400 mb-2">File (biarkan kosong jika tidak ganti)</label>
         <input type="file" name="file" accept=".pdf,.jpg,.png" class="w-full text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-purple-500/20 file:text-purple-300 hover:file:bg-purple-500/30 transition-colors" />
         <?php if ($project['file_path']): ?>
-          <p class="text-gray-500 text-xs mt-2">File saat ini: <a href="../<?php echo $project['file_path']; ?>" class="text-purple-400 hover:underline"><?php echo basename($project['file_path']); ?></a></p>
+          <p class="text-gray-500 text-xs mt-2">File saat ini: <a href="../<?php echo htmlspecialchars($project['file_path']); ?>" class="text-purple-400 hover:underline"><?php echo basename($project['file_path']); ?></a></p>
         <?php endif; ?>
       </div>
       <button type="submit" class="px-8 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white rounded-lg font-medium hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">Update Project</button>

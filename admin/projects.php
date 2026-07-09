@@ -26,6 +26,7 @@ $result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
             <th class="text-left p-4">No</th>
             <th class="text-left p-4">Title</th>
             <th class="text-left p-4">Category</th>
+            <th class="text-left p-4">GitHub</th>
             <th class="text-left p-4">File</th>
             <th class="text-left p-4">Created At</th>
             <th class="text-left p-4">Actions</th>
@@ -33,7 +34,7 @@ $result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
         </thead>
         <tbody>
           <?php if ($result->num_rows === 0): ?>
-          <tr><td colspan="6" class="p-4 text-gray-500 text-center">No projects yet. <a href="add_project.php" class="text-purple-400 hover:underline">Add one!</a></td></tr>
+          <tr><td colspan="7" class="p-4 text-gray-500 text-center">No projects yet. <a href="add_project.php" class="text-purple-400 hover:underline">Add one!</a></td></tr>
           <?php endif; ?>
           <?php $no = 1; while ($row = $result->fetch_assoc()): ?>
           <tr class="border-b border-gray-800/50 hover:bg-gray-900/30 transition-colors">
@@ -46,8 +47,15 @@ $result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
               echo '<span class="px-3 py-1 text-xs bg-' . $c . '-500/20 text-' . $c . '-300 rounded-full">' . htmlspecialchars($cat) . '</span>';
             ?></td>
             <td class="p-4">
+              <?php if ($row['github_url']): ?>
+                <a href="<?php echo htmlspecialchars($row['github_url']); ?>" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors text-xs">🔗 Repo</a>
+              <?php else: ?>
+                <span class="text-gray-600">—</span>
+              <?php endif; ?>
+            </td>
+            <td class="p-4">
               <?php if ($row['file_path']): ?>
-                <a href="../<?php echo $row['file_path']; ?>" class="text-purple-400 hover:text-purple-300 transition-colors" download>📎 Download</a>
+                <a href="../<?php echo htmlspecialchars($row['file_path']); ?>" class="text-purple-400 hover:text-purple-300 transition-colors" download>📎 Download</a>
               <?php else: ?>
                 <span class="text-gray-600">—</span>
               <?php endif; ?>
