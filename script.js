@@ -217,7 +217,7 @@ validateForm();
 
 // ========== 6. CHART.JS — REPORTING CHARTS ==========
 
-let barChart, lineChart, pieChart, stackedBarChart, scatterChart;
+let barChart, lineChart, pieChart;
 
 function initCharts() {
   const isDark = true;
@@ -360,56 +360,6 @@ function initCharts() {
     });
   }
 
-  // --- Stacked Bar Chart ---
-  const stackedCtx = document.getElementById('stackedBarChart');
-  if (stackedCtx) {
-    stackedBarChart = new Chart(stackedCtx, {
-      type: 'bar',
-      data: {
-        labels: ['LMS Royal Prima', 'Overtime System', 'SimpleAttendance', 'Antrian-Ku'],
-        datasets: [
-          {
-            label: 'Backend',
-            data: [45, 55, 40, 50],
-            backgroundColor: 'rgba(168, 85, 247, 0.8)'
-          },
-          {
-            label: 'Frontend',
-            data: [30, 25, 35, 30],
-            backgroundColor: 'rgba(59, 130, 246, 0.8)'
-          },
-          {
-            label: 'Database',
-            data: [25, 20, 25, 20],
-            backgroundColor: 'rgba(34, 197, 94, 0.8)'
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          x: {
-            stacked: true,
-            grid: { display: false },
-            ticks: { color: textColor, font: { size: 9 } }
-          },
-          y: {
-            stacked: true,
-            beginAtZero: true,
-            grid: { color: gridColor },
-            ticks: { color: textColor, font: { size: 10 } }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: { color: textColor, font: { size: 10 } }
-          }
-        }
-      }
-    });
-  }
-
   // --- Scatter Chart ---
   const scatterCtx = document.getElementById('scatterChart');
   if (scatterCtx) {
@@ -479,38 +429,7 @@ function initCharts() {
 
 initCharts();
 
-// ========== 7. PROGRAMMATIC EVENT TRIGGER — REFRESH DASHBOARD ==========
-
-function refreshDashboardData() {
-  if (stackedBarChart) {
-    stackedBarChart.data.datasets.forEach(dataset => {
-      dataset.data = dataset.data.map(() => Math.floor(20 + Math.random() * 50));
-    });
-    stackedBarChart.update();
-  }
-
-  if (scatterChart) {
-    const newData = [];
-    for (let i = 0; i < 20; i++) {
-      newData.push({
-        x: 0.5 + Math.random() * 4,
-        y: 20 + Math.random() * 60
-      });
-    }
-    scatterChart.data.datasets[0].data = newData;
-    scatterChart.update();
-  }
-
-  showToast('Dashboard data refreshed!', 'success');
-  console.log('Dashboard refreshed at', new Date().toLocaleTimeString());
-}
-
-const refreshBtn = document.getElementById('refreshDashboard');
-if (refreshBtn) {
-  refreshBtn.addEventListener('click', refreshDashboardData);
-}
-
-// ========== 8. DEBUGGING — CONSOLE LOGGING ==========
+// ========== 7. DEBUGGING — CONSOLE LOGGING ==========
 
 console.log('%c Portfolio JS Loaded ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
 console.log('Skills count:', skillsData.length);

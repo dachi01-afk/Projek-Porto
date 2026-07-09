@@ -20,19 +20,24 @@
 
 | File | Fungsi |
 |------|--------|
-| `script.js` | Semua logic JavaScript |
+| `script.js` | Logic JavaScript untuk halaman utama (index.html) |
+| `dashboard.js` | Logic JavaScript khusus halaman dashboard |
+| `dashboard.html` | Halaman terpisah untuk dashboard charts |
 | `style.css` | CSS dipisah dari HTML |
 | `index.html` | Ditambahkan link ke CSS, JS, Chart.js, section baru |
 
 **Cara menghubungkan:**
 ```html
-<!-- Di <head> -->
+<!-- Di <head> index.html & dashboard.html -->
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- Sebelum </body> -->
+<!-- Sebelum </body> index.html -->
 <script src="script.js"></script>
+
+<!-- Sebelum </body> dashboard.html -->
+<script src="dashboard.js"></script>
 ```
 
 **Pertanyaan mentor:** "Kenapa script.js ditaruh di akhir?"
@@ -160,7 +165,7 @@ bar.style.width = target + '%';          // Inline style
 |-------|--------|--------|
 | `click` | Menu button | Toggle mobile menu |
 | `click` | Nav link (mobile) | Tutup menu setelah klik |
-| `click` | Refresh button | Update chart data |
+| `click` | Refresh button (dashboard.html) | Update chart data |
 | `submit` | Contact form | Validasi & kirim |
 | `change` | Input fields | Validasi real-time |
 
@@ -229,37 +234,38 @@ Warna bar berubah **dinamis berdasarkan nilai** — ini adalah **Scriptable Opti
 
 ## 9. Chart.js - Dashboard & Advanced
 
+Dashboard berada di halaman terpisah (`dashboard.html`) dengan file JS khusus (`dashboard.js`).
+
 ### 2 Chart Dashboard:
 
-| Chart | Data | Fitur |
-|-------|------|-------|
-| **Stacked Bar** | Effort per project (Backend, Frontend, Database) | Stacked |
-| **Scatter** | Commit activity (random points) | Linear axis |
+| Chart | Data | Tipe |
+|-------|------|------|
+| **Stacked Bar** | Effort per project (Backend, Frontend, Database) | `type: 'bar'` + stacked |
+| **Polar Area** | Total effort per project | `type: 'polarArea'` |
 
 ### Advanced Features:
 
 #### 1. Scriptable Options
-Warna bar chart ditentukan oleh value data (≥90 = purple, ≥80 = blue, dst).
+Warna pada Stacked Bar dan Polar Area menggunakan array warna yang sudah ditentukan. Di Polar Area, setiap segmen memiliki warna berbeda yang merepresentasikan project berbeda.
 
 #### 2. Animation
-Chart.js animation aktif secara default. Bisa dikustom:
-```javascript
-animation: {
-  duration: 1000,
-  easing: 'easeInOutQuart'
-}
-```
+Chart.js animation aktif secara default. Setiap kali tombol Refresh diklik, chart di-*update* ulang sehingga animasi berjalan kembali.
 
 #### 3. Programmatic Event Trigger
 ```javascript
 refreshBtn.addEventListener('click', () => {
-  // Update data chart
-  stackedBarChart.data.datasets[0].data = newData;
+  // Update data stacked bar dengan angka random
+  stackedBarChart.data.datasets.forEach(dataset => {
+    dataset.data = dataset.data.map(() => Math.floor(20 + Math.random() * 50));
+  });
   stackedBarChart.update();
-  // Trigger animation lagi
+
+  // Update data polar area dengan angka random
+  polarChart.data.datasets[0].data = polarChart.data.datasets[0].data.map(() => 50 + Math.random() * 100);
+  polarChart.update();
 });
 ```
-Saat tombol "Refresh Data" diklik → chart diperbarui dengan data random + animasi ulang.
+Saat tombol "Refresh Data" diklik → kedua chart diperbarui dengan data acak + animasi ulang.
 
 ---
 
@@ -291,7 +297,7 @@ console.log('%c Styled log ', 'background: purple; color: white;');
 
 | Requirements | Status | Lokasi di Code |
 |-------------|--------|----------------|
-| File JS eksternal | ✅ | `script.js` |
+| File JS eksternal | ✅ | `script.js` (index), `dashboard.js` (dashboard) |
 | Variabel & data type | ✅ | Baris 10-45 (`const`, `let`, string, number, boolean, array, object) |
 | Operator | ✅ | Perbandingan (`>=`), logika (`&&`), arithmetic (`length`) |
 | Conditional (if/else) | ✅ | `setGreeting()` — percabangan 4 kondisi waktu |
@@ -300,8 +306,9 @@ console.log('%c Styled log ', 'background: purple; color: white;');
 | Event Listener | ✅ (5) | `click` (menu, refresh), `submit` (form), `change` (input) |
 | Debugging console.log | ✅ | 6 titik log di berbagai fungsi |
 | Chart.js (3 chart reporting) | ✅ | Bar, Line, Pie — `initCharts()` |
-| Chart.js (dashboard) | ✅ | Stacked Bar, Scatter — `initCharts()` |
+| Chart.js (dashboard) | ✅ | Stacked Bar, Polar Area — `dashboard.js` |
 | Scriptable Options | ✅ | Warna bar dinamis berdasarkan nilai |
+| Dashboard halaman terpisah | ✅ | `dashboard.html` + `dashboard.js` |
 | Animation Chart | ✅ | Default + trigger ulang via `update()` |
 | Programmatic Event Trigger | ✅ | Tombol Refresh → update data chart |
 | CSS file terpisah | ✅ | `style.css` |
