@@ -160,7 +160,7 @@ function renderSkillTree($tree, $depth = 0) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><?php echo $nama; ?> | Portfolio</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💻</text></svg>" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="css/style.css" />
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -172,7 +172,7 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
-        <li><a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
+        <li><a href="pages/dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
       <button id="menu-btn" class="mobile-toggle md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
@@ -189,7 +189,7 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
-        <li><a href="dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
+        <li><a href="pages/dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
     </div>
@@ -333,6 +333,6 @@ function renderSkillTree($tree, $depth = 0) {
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
