@@ -79,14 +79,20 @@ function renderProjectCard($title, $desc, $tech, $link, $icon, $category, $file_
     $i++;
   }
   $categoryLabel = getCategoryLabel($category);
+  $fileExt = $file_path ? strtolower(pathinfo($file_path, PATHINFO_EXTENSION)) : '';
+  $isImage = in_array($fileExt, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+  $cardImage = '';
   $downloadLink = '';
-  if ($file_path) {
+  if ($file_path && $isImage) {
+    $cardImage = '<img src="' . htmlspecialchars($file_path) . '" alt="' . htmlspecialchars($title) . '" class="w-full h-full object-cover" />';
+    $downloadLink = '<a href="' . htmlspecialchars($file_path) . '" download class="text-green-400 hover:text-green-300 transition-colors text-sm">📎 Download →</a>';
+  } elseif ($file_path) {
     $downloadLink = '<a href="' . htmlspecialchars($file_path) . '" download class="text-green-400 hover:text-green-300 transition-colors text-sm">📎 Download →</a>';
   }
   return '
     <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
-      <div class="h-48 bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
-        <span class="text-purple-400 text-lg">' . $icon . '</span>
+      <div class="h-48 bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center overflow-hidden">
+        ' . ($cardImage ?: '<span class="text-purple-400 text-lg">' . $icon . '</span>') . '
       </div>
       <div class="p-6">
         <div class="flex items-center justify-between mb-2">

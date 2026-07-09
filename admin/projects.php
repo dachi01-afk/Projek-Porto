@@ -55,7 +55,17 @@ $result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
             </td>
             <td class="p-4">
               <?php if ($row['file_path']): ?>
-                <a href="../<?php echo htmlspecialchars($row['file_path']); ?>" class="text-purple-400 hover:text-purple-300 transition-colors" download>📎 Download</a>
+                <?php
+                $ext = strtolower(pathinfo($row['file_path'], PATHINFO_EXTENSION));
+                $isImg = in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']);
+                ?>
+                <?php if ($isImg): ?>
+                  <a href="../<?php echo htmlspecialchars($row['file_path']); ?>" target="_blank">
+                    <img src="../<?php echo htmlspecialchars($row['file_path']); ?>" class="w-16 h-12 object-cover rounded-lg border border-gray-700 hover:opacity-80 transition-opacity" />
+                  </a>
+                <?php else: ?>
+                  <a href="../<?php echo htmlspecialchars($row['file_path']); ?>" class="text-purple-400 hover:text-purple-300 transition-colors" download>📎 Download</a>
+                <?php endif; ?>
               <?php else: ?>
                 <span class="text-gray-600">—</span>
               <?php endif; ?>
