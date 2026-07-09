@@ -24,40 +24,22 @@ $skills = [
   ["name" => "Git & GitHub",  "level" => 90, "icon" => "🐙"]
 ];
 
-$projects = [
-  [
-    "title" => "LMS Royal Prima",
-    "desc" => "Learning Management System untuk mengelola pembelajaran, materi, dan evaluasi siswa secara terintegrasi.",
-    "tech" => ["Laravel", "PHP", "Blade", "MySQL"],
-    "link" => "https://github.com/aurelioo29/lms-royal-prima",
-    "icon" => "📚",
-    "category" => "Fullstack"
-  ],
-  [
-    "title" => "Overtime Request System",
-    "desc" => "Sistem pengajuan lembur digital dengan approval workflow multi-level, perhitungan otomatis, dan pelaporan.",
-    "tech" => ["Laravel", "PHP", "Tailwind", "MySQL"],
-    "link" => "https://github.com/dachi01-afk/Overtime-Request-System",
-    "icon" => "🕒",
-    "category" => "Backend"
-  ],
-  [
-    "title" => "SimpleAttendance",
-    "desc" => "Sistem absensi berbasis web dengan fitur check-in/check-out, riwayat kehadiran, dan dashboard admin.",
-    "tech" => ["Laravel", "PHP", "Tailwind", "MySQL"],
-    "link" => "https://github.com/dachi01-afk/SimpleAttendance",
-    "icon" => "📋",
-    "category" => "Backend"
-  ],
-  [
-    "title" => "Antrian-Ku",
-    "desc" => "Sistem manajemen antrian digital untuk instansi pelayanan publik dengan Multi Channel Single Phase.",
-    "tech" => ["Laravel", "PHP", "Blade", "jQuery"],
-    "link" => "https://github.com/itsmeFer/Antrian-Ku",
-    "icon" => "🔢",
-    "category" => "Frontend"
-  ]
-];
+require_once __DIR__ . '/connection.php';
+$result = $conn->query("SELECT * FROM projects ORDER BY created_at DESC");
+$projects = [];
+while ($row = $result->fetch_assoc()) {
+  $tech = json_decode($row['tech'], true);
+  if (!is_array($tech)) $tech = [];
+  $projects[] = [
+    "title" => $row['title'],
+    "desc" => $row['description'],
+    "tech" => $tech,
+    "link" => $row['file_path'] ? $row['file_path'] : "#",
+    "icon" => "📁",
+    "category" => $row['category'],
+    "file_path" => $row['file_path']
+  ];
+}
 
 $skillTree = [
   "Web Development" => [
@@ -87,7 +69,7 @@ function getCategoryLabel($category) {
   }
 }
 
-function renderProjectCard($title, $desc, $tech, $link, $icon, $category) {
+function renderProjectCard($title, $desc, $tech, $link, $icon, $category, $file_path = null) {
   $techBadges = "";
   $bgColors = ["bg-purple-500/20 text-purple-300", "bg-blue-500/20 text-blue-300", "bg-green-500/20 text-green-300", "bg-yellow-500/20 text-yellow-300"];
   $i = 0;
@@ -97,6 +79,10 @@ function renderProjectCard($title, $desc, $tech, $link, $icon, $category) {
     $i++;
   }
   $categoryLabel = getCategoryLabel($category);
+  $downloadLink = '';
+  if ($file_path) {
+    $downloadLink = '<a href="' . $file_path . '" download class="text-green-400 hover:text-green-300 transition-colors text-sm">📎 Download →</a>';
+  }
   return '
     <div class="bg-gray-900/50 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300">
       <div class="h-48 bg-gradient-to-br from-purple-900/40 to-blue-900/40 flex items-center justify-center">
@@ -111,6 +97,7 @@ function renderProjectCard($title, $desc, $tech, $link, $icon, $category) {
         <div class="flex flex-wrap gap-2 mb-4">' . $techBadges . '</div>
         <div class="flex gap-4">
           <a href="' . $link . '" target="_blank" class="text-purple-400 hover:text-purple-300 transition-colors text-sm">🔗 GitHub →</a>
+          ' . $downloadLink . '
         </div>
       </div>
     </div>
@@ -125,7 +112,7 @@ function renderPortfolioSection($title, $items) {
       <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-12">Featured <span class="text-purple-400">' . htmlspecialchars($title) . '</span></h2>
       <div class="project-grid grid md:grid-cols-2 gap-8">';
   foreach ($items as $item) {
-    $output .= renderProjectCard($item["title"], $item["desc"], $item["tech"], $item["link"], $item["icon"], $item["category"]);
+    $output .= renderProjectCard($item["title"], $item["desc"], $item["tech"], $item["link"], $item["icon"], $item["category"], $item["file_path"]);
   }
   $output .= '
       </div>
@@ -172,7 +159,6 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
-        <li><a href="pages/dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
       <button id="menu-btn" class="mobile-toggle md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
@@ -189,7 +175,6 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
-        <li><a href="pages/dashboard.html" class="hover:text-white transition-colors">Dashboard</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
       </ul>
     </div>
