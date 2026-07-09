@@ -160,6 +160,7 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        <li><a href="admin/index.php" class="text-purple-400 hover:text-purple-300 transition-colors text-sm border border-purple-500/30 px-3 py-1.5 rounded-lg">Admin</a></li>
       </ul>
       <button id="menu-btn" class="mobile-toggle md:hidden text-white focus:ring-2 focus:ring-purple-500 focus:outline-none rounded-lg p-1 transition-all">
         <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -176,6 +177,7 @@ function renderSkillTree($tree, $depth = 0) {
         <li><a href="#skills" class="hover:text-white transition-colors">Skills</a></li>
         <li><a href="#projects" class="hover:text-white transition-colors">Projects</a></li>
         <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        <li><a href="admin/index.php" class="text-purple-400 hover:text-purple-300 transition-colors">Admin</a></li>
       </ul>
     </div>
   </header>
