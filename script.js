@@ -1,14 +1,3 @@
-/* ============================================
-   JavaScript Portfolio - Bootcamp Task 2
-   Menggunakan jQuery untuk DOM Manipulation
-   & Event Handling, Chart.js tetap vanilla JS
-   Concepts: variables, data types, operators,
-   conditional, looping, jQuery DOM manipulation,
-   jQuery event handling, Chart.js
-   ============================================ */
-
-// ========== 1. VARIABLES, DATA TYPES & OPERATORS ==========
-
 const portfolioOwner = 'Jimi Firgo Dakhi';
 let currentYear = 2026;
 const isBootcampComplete = false;
@@ -46,8 +35,6 @@ console.log('Portfolio Owner:', portfolioOwner);
 console.log('Skills Data:', skillsData);
 console.log('Learning Data:', learningData);
 
-// ========== 2. CONDITIONAL — GREETING BASED ON TIME ==========
-
 function setGreeting() {
   const $greetingEl = $('#greeting');
   if (!$greetingEl.length) return;
@@ -70,8 +57,6 @@ function setGreeting() {
 }
 
 setGreeting();
-
-// ========== 3. LOOPING — RENDER SKILL BARS DYNAMICALLY ==========
 
 function renderSkillBars() {
   const $container = $('.skill-grid');
@@ -108,8 +93,6 @@ function animateSkillBars() {
 
 renderSkillBars();
 
-// ========== 4. DOM MANIPULATION — MOBILE MENU TOGGLE ==========
-
 function initMobileMenu() {
   const $menuBtn = $('#menu-btn');
   const $mobileMenu = $('#mobile-menu');
@@ -132,8 +115,6 @@ function initMobileMenu() {
 }
 
 initMobileMenu();
-
-// ========== 5. EVENT HANDLING — FORM VALIDATION ==========
 
 function showToast(message, type) {
   const $toast = $('<div>')
@@ -214,8 +195,6 @@ function validateForm() {
 
 validateForm();
 
-// ========== 6. CHART.JS — REPORTING CHARTS (tetap vanilla JS) ==========
-
 let barChart, lineChart, pieChart;
 
 function initCharts() {
@@ -223,7 +202,6 @@ function initCharts() {
   const gridColor = 'rgba(255,255,255,0.05)';
   const textColor = '#9ca3af';
 
-  // --- Bar Chart ---
   const barCtx = document.getElementById('barChart');
   if (barCtx) {
     barChart = new Chart(barCtx, {
@@ -271,7 +249,6 @@ function initCharts() {
     });
   }
 
-  // --- Line Chart ---
   const lineCtx = document.getElementById('lineChart');
   if (lineCtx) {
     lineChart = new Chart(lineCtx, {
@@ -332,7 +309,6 @@ function initCharts() {
     });
   }
 
-  // --- Pie Chart ---
   const pieCtx = document.getElementById('pieChart');
   if (pieCtx) {
     pieChart = new Chart(pieCtx, {
@@ -359,7 +335,6 @@ function initCharts() {
     });
   }
 
-  // --- Scatter Chart ---
   const scatterCtx = document.getElementById('scatterChart');
   if (scatterCtx) {
     const projects = ['LMS', 'Overtime', 'Attendance', 'Antrian'];
@@ -427,8 +402,6 @@ function initCharts() {
 }
 
 initCharts();
-
-// ========== 7. DEBUGGING — CONSOLE LOGGING ==========
 
 console.log('%c Portfolio JS Loaded (jQuery) ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
 console.log('Skills count:', skillsData.length);

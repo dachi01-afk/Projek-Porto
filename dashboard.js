@@ -1,11 +1,3 @@
-/* ============================================
-   Dashboard JS - Chart.js Advanced Features
-   Menggunakan jQuery untuk DOM & Events
-   Stacked Bar, Polar Area, Programmatic Event
-   ============================================ */
-
-// ========== TOAST HELPER ==========
-
 function showToast(message, type) {
   const colors = {
     success: 'from-green-500 to-green-600',
@@ -27,8 +19,6 @@ function showToast(message, type) {
   }, 3000);
 }
 
-// ========== DATA ==========
-
 const projectData = [
   { name: 'LMS Royal Prima', backend: 45, frontend: 30, database: 25 },
   { name: 'Overtime System', backend: 55, frontend: 25, database: 20 },
@@ -36,12 +26,9 @@ const projectData = [
   { name: 'Antrian-Ku', backend: 50, frontend: 30, database: 20 }
 ];
 
-// ========== CHARTS (tetap vanilla JS untuk Chart.js) ==========
-
 const textColor = '#9ca3af';
 const gridColor = 'rgba(255,255,255,0.05)';
 
-// --- Stacked Bar Chart ---
 const stackedCtx = document.getElementById('stackedBarChart');
 let stackedBarChart;
 
@@ -99,7 +86,6 @@ if (stackedCtx) {
   });
 }
 
-// --- Polar Area Chart ---
 const polarCtx = document.getElementById('polarChart');
 let polarChart;
 
@@ -143,8 +129,6 @@ if (polarCtx) {
   });
 }
 
-// ========== PROGRAMMATIC EVENT TRIGGER (jQuery) ==========
-
 function refreshDashboard() {
   if (stackedBarChart) {
     stackedBarChart.data.datasets.forEach(dataset => {
@@ -163,8 +147,6 @@ function refreshDashboard() {
 }
 
 $('#refreshDashboard').on('click', refreshDashboard);
-
-// ========== DEBUGGING ==========
 
 console.log('%c Dashboard JS Loaded (jQuery) ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
 console.log('Project data:', projectData);
