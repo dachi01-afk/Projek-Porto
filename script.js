@@ -1,8 +1,10 @@
 /* ============================================
    JavaScript Portfolio - Bootcamp Task 2
+   Menggunakan jQuery untuk DOM Manipulation
+   & Event Handling, Chart.js tetap vanilla JS
    Concepts: variables, data types, operators,
-   conditional, looping, DOM manipulation,
-   event handling, Chart.js, scriptable options
+   conditional, looping, jQuery DOM manipulation,
+   jQuery event handling, Chart.js
    ============================================ */
 
 // ========== 1. VARIABLES, DATA TYPES & OPERATORS ==========
@@ -47,8 +49,8 @@ console.log('Learning Data:', learningData);
 // ========== 2. CONDITIONAL — GREETING BASED ON TIME ==========
 
 function setGreeting() {
-  const greetingEl = document.getElementById('greeting');
-  if (!greetingEl) return;
+  const $greetingEl = $('#greeting');
+  if (!$greetingEl.length) return;
 
   const hour = new Date().getHours();
   let greeting;
@@ -63,7 +65,7 @@ function setGreeting() {
     greeting = 'Good Night';
   }
 
-  greetingEl.textContent = greeting;
+  $greetingEl.text(greeting);
   console.log(`Greeting set: "${greeting}" at hour ${hour}`);
 }
 
@@ -72,37 +74,35 @@ setGreeting();
 // ========== 3. LOOPING — RENDER SKILL BARS DYNAMICALLY ==========
 
 function renderSkillBars() {
-  const container = document.querySelector('.skill-grid');
-  if (!container) return;
+  const $container = $('.skill-grid');
+  if (!$container.length) return;
 
-  container.innerHTML = '';
+  $container.empty();
 
-  skillsData.forEach((skill, index) => {
-    const card = document.createElement('div');
-    card.className = 'skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300';
-    card.style.animationDelay = `${(index + 1) * 0.1}s`;
-
+  $.each(skillsData, function (index, skill) {
     const levelPercent = skill.level;
 
-    card.innerHTML = `
-      <div class="text-4xl mb-3">${skill.icon}</div>
-      <h3 class="text-white font-semibold mb-2">${skill.name}</h3>
-      <div class="w-full bg-gray-800 rounded-full h-2">
-        <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full skill-bar" style="width: 0%" data-target="${levelPercent}"></div>
-      </div>
-    `;
+    const $card = $('<div>')
+      .addClass('skill-card bg-gray-900/50 border border-gray-800 rounded-xl p-6 text-center hover:border-purple-500/50 hover:-translate-y-2 transition-all duration-300')
+      .css('animationDelay', (index + 1) * 0.1 + 's')
+      .html(`
+        <div class="text-4xl mb-3">${skill.icon}</div>
+        <h3 class="text-white font-semibold mb-2">${skill.name}</h3>
+        <div class="w-full bg-gray-800 rounded-full h-2">
+          <div class="bg-gradient-to-r from-purple-500 to-blue-500 h-2 rounded-full skill-bar" style="width: 0%" data-target="${levelPercent}"></div>
+        </div>
+      `);
 
-    container.appendChild(card);
+    $container.append($card);
   });
 
   setTimeout(animateSkillBars, 300);
 }
 
 function animateSkillBars() {
-  const bars = document.querySelectorAll('.skill-bar');
-  bars.forEach(bar => {
-    const target = parseInt(bar.dataset.target);
-    bar.style.width = target + '%';
+  $('.skill-bar').each(function () {
+    const target = parseInt($(this).data('target'));
+    $(this).css('width', target + '%');
   });
 }
 
@@ -111,25 +111,23 @@ renderSkillBars();
 // ========== 4. DOM MANIPULATION — MOBILE MENU TOGGLE ==========
 
 function initMobileMenu() {
-  const menuBtn = document.getElementById('menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
+  const $menuBtn = $('#menu-btn');
+  const $mobileMenu = $('#mobile-menu');
+  const $iconOpen = $('#menu-icon-open');
+  const $iconClose = $('#menu-icon-close');
 
-  if (!menuBtn || !mobileMenu) return;
+  if (!$menuBtn.length || !$mobileMenu.length) return;
 
-  menuBtn.addEventListener('click', () => {
-    mobileMenu.classList.toggle('hidden');
-    iconOpen.classList.toggle('hidden');
-    iconClose.classList.toggle('hidden');
+  $menuBtn.on('click', function () {
+    $mobileMenu.toggleClass('hidden');
+    $iconOpen.toggleClass('hidden');
+    $iconClose.toggleClass('hidden');
   });
 
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.add('hidden');
-      iconOpen.classList.remove('hidden');
-      iconClose.classList.add('hidden');
-    });
+  $mobileMenu.find('a').on('click', function () {
+    $mobileMenu.addClass('hidden');
+    $iconOpen.removeClass('hidden');
+    $iconClose.addClass('hidden');
   });
 }
 
@@ -138,75 +136,76 @@ initMobileMenu();
 // ========== 5. EVENT HANDLING — FORM VALIDATION ==========
 
 function showToast(message, type) {
-  const toast = document.createElement('div');
-  toast.className = `toast ${type}`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => toast.classList.add('show'), 10);
-  setTimeout(() => {
-    toast.classList.remove('show');
-    setTimeout(() => toast.remove(), 400);
+  const $toast = $('<div>')
+    .addClass('toast ' + type)
+    .text(message)
+    .appendTo('body');
+
+  setTimeout(function () { $toast.addClass('show'); }, 10);
+  setTimeout(function () {
+    $toast.removeClass('show');
+    setTimeout(function () { $toast.remove(); }, 400);
   }, 3000);
 }
 
 function validateForm() {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
+  const $form = $('#contactForm');
+  if (!$form.length) return;
 
-  const nameInput = document.getElementById('name');
-  const emailInput = document.getElementById('email');
-  const messageInput = document.getElementById('message');
-  const nameError = document.getElementById('nameError');
-  const emailError = document.getElementById('emailError');
-  const messageError = document.getElementById('messageError');
+  const $nameInput = $('#name');
+  const $emailInput = $('#email');
+  const $messageInput = $('#message');
+  const $nameError = $('#nameError');
+  const $emailError = $('#emailError');
+  const $messageError = $('#messageError');
 
   function validateField() {
     let isValid = true;
 
-    if (nameInput.value.trim().length < 3) {
-      nameInput.classList.add('form-error');
-      nameError.classList.add('visible');
+    if ($nameInput.val().trim().length < 3) {
+      $nameInput.addClass('form-error');
+      $nameError.addClass('visible');
       isValid = false;
     } else {
-      nameInput.classList.remove('form-error');
-      nameError.classList.remove('visible');
+      $nameInput.removeClass('form-error');
+      $nameError.removeClass('visible');
     }
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailPattern.test(emailInput.value.trim())) {
-      emailInput.classList.add('form-error');
-      emailError.classList.add('visible');
+    if (!emailPattern.test($emailInput.val().trim())) {
+      $emailInput.addClass('form-error');
+      $emailError.addClass('visible');
       isValid = false;
     } else {
-      emailInput.classList.remove('form-error');
-      emailError.classList.remove('visible');
+      $emailInput.removeClass('form-error');
+      $emailError.removeClass('visible');
     }
 
-    if (messageInput.value.trim() === '') {
-      messageInput.classList.add('form-error');
-      messageError.classList.add('visible');
+    if ($messageInput.val().trim() === '') {
+      $messageInput.addClass('form-error');
+      $messageError.addClass('visible');
       isValid = false;
     } else {
-      messageInput.classList.remove('form-error');
-      messageError.classList.remove('visible');
+      $messageInput.removeClass('form-error');
+      $messageError.removeClass('visible');
     }
 
     return isValid;
   }
 
-  nameInput.addEventListener('change', validateField);
-  emailInput.addEventListener('change', validateField);
-  messageInput.addEventListener('change', validateField);
+  $nameInput.on('change', validateField);
+  $emailInput.on('change', validateField);
+  $messageInput.on('change', validateField);
 
-  form.addEventListener('submit', (e) => {
+  $form.on('submit', function (e) {
     e.preventDefault();
 
     if (validateField()) {
       console.log('Form submitted successfully');
-      console.log('Name:', nameInput.value.trim());
-      console.log('Email:', emailInput.value.trim());
+      console.log('Name:', $nameInput.val().trim());
+      console.log('Email:', $emailInput.val().trim());
       showToast('Thank you! Your message has been sent.', 'success');
-      form.reset();
+      $form[0].reset();
     } else {
       showToast('Please fix the errors before submitting.', 'error');
     }
@@ -215,7 +214,7 @@ function validateForm() {
 
 validateForm();
 
-// ========== 6. CHART.JS — REPORTING CHARTS ==========
+// ========== 6. CHART.JS — REPORTING CHARTS (tetap vanilla JS) ==========
 
 let barChart, lineChart, pieChart;
 
@@ -431,7 +430,7 @@ initCharts();
 
 // ========== 7. DEBUGGING — CONSOLE LOGGING ==========
 
-console.log('%c Portfolio JS Loaded ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
+console.log('%c Portfolio JS Loaded (jQuery) ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
 console.log('Skills count:', skillsData.length);
 console.log('Learning weeks:', learningData.length);
 console.log('Browser:', navigator.userAgent);

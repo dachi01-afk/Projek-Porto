@@ -1,7 +1,7 @@
 /* ============================================
    Dashboard JS - Chart.js Advanced Features
-   Stacked Bar, Scatter, Scriptable Options,
-   Animation, Programmatic Event Trigger
+   Menggunakan jQuery untuk DOM & Events
+   Stacked Bar, Polar Area, Programmatic Event
    ============================================ */
 
 // ========== TOAST HELPER ==========
@@ -11,19 +11,19 @@ function showToast(message, type) {
     success: 'from-green-500 to-green-600',
     error: 'from-red-500 to-red-600'
   };
-  const toast = document.createElement('div');
-  toast.className = `fixed bottom-8 right-8 px-6 py-3 rounded-xl text-white font-medium bg-gradient-to-r ${colors[type]} transform translate-y-24 opacity-0 transition-all duration-400 z-50`;
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    toast.classList.add('translate-y-0', 'opacity-100');
-    toast.style.transform = 'translateY(0)';
-    toast.style.opacity = '1';
+
+  const $toast = $('<div>')
+    .addClass('fixed bottom-8 right-8 px-6 py-3 rounded-xl text-white font-medium bg-gradient-to-r ' + colors[type] + ' transform translate-y-24 opacity-0 transition-all duration-400 z-50')
+    .text(message)
+    .appendTo('body');
+
+  setTimeout(function () {
+    $toast.css({ 'transform': 'translateY(0)', 'opacity': '1' });
   }, 10);
-  setTimeout(() => {
-    toast.style.transform = 'translateY(24px)';
-    toast.style.opacity = '0';
-    setTimeout(() => toast.remove(), 400);
+
+  setTimeout(function () {
+    $toast.css({ 'transform': 'translateY(24px)', 'opacity': '0' });
+    setTimeout(function () { $toast.remove(); }, 400);
   }, 3000);
 }
 
@@ -36,7 +36,7 @@ const projectData = [
   { name: 'Antrian-Ku', backend: 50, frontend: 30, database: 20 }
 ];
 
-// ========== CHARTS ==========
+// ========== CHARTS (tetap vanilla JS untuk Chart.js) ==========
 
 const textColor = '#9ca3af';
 const gridColor = 'rgba(255,255,255,0.05)';
@@ -143,7 +143,7 @@ if (polarCtx) {
   });
 }
 
-// ========== PROGRAMMATIC EVENT TRIGGER ==========
+// ========== PROGRAMMATIC EVENT TRIGGER (jQuery) ==========
 
 function refreshDashboard() {
   if (stackedBarChart) {
@@ -162,13 +162,10 @@ function refreshDashboard() {
   console.log('Dashboard refreshed at', new Date().toLocaleTimeString());
 }
 
-const refreshBtn = document.getElementById('refreshDashboard');
-if (refreshBtn) {
-  refreshBtn.addEventListener('click', refreshDashboard);
-}
+$('#refreshDashboard').on('click', refreshDashboard);
 
 // ========== DEBUGGING ==========
 
-console.log('%c Dashboard JS Loaded ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
+console.log('%c Dashboard JS Loaded (jQuery) ', 'background: #a855f7; color: white; font-size: 16px; padding: 4px;');
 console.log('Project data:', projectData);
 console.log('Page loaded at:', new Date().toISOString());

@@ -5,8 +5,8 @@
 2. [Variabel, Data Type & Operator](#2-variabel-data-type--operator)
 3. [Conditional (Greeting Dinamis)](#3-conditional-greeting-dinamis)
 4. [Looping (Render Skill Cards)](#4-looping-render-skill-cards)
-5. [DOM Manipulation](#5-dom-manipulation)
-6. [Event Handling](#6-event-handling)
+5. [jQuery DOM Manipulation](#5-jquery-dom-manipulation)
+6. [jQuery Event Handling](#6-jquery-event-handling)
 7. [Form Validation](#7-form-validation)
 8. [Chart.js - Reporting Charts](#8-chartjs---reporting-charts)
 9. [Chart.js - Dashboard & Advanced](#9-chartjs---dashboard--advanced)
@@ -24,7 +24,7 @@
 | `dashboard.js` | Logic JavaScript khusus halaman dashboard |
 | `dashboard.html` | Halaman terpisah untuk dashboard charts |
 | `style.css` | CSS dipisah dari HTML |
-| `index.html` | Ditambahkan link ke CSS, JS, Chart.js, section baru |
+| `index.html` | Ditambahkan link ke CSS, JS, jQuery, Chart.js, section baru |
 
 **Cara menghubungkan:**
 ```html
@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="style.css" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
 <!-- Sebelum </body> index.html -->
 <script src="script.js"></script>
@@ -40,8 +41,11 @@
 <script src="dashboard.js"></script>
 ```
 
-**Pertanyaan mentor:** "Kenapa script.js ditaruh di akhir?"
-**Jawaban:** Agar DOM sudah selesai dirender sebelum JS dijalankan. Alternatif: pakai `defer` di `<head>`.
+**Pertanyaan mentor:** "Kenapa pakai jQuery?"
+**Jawaban:** jQuery memudahkan DOM manipulation, event handling, dan animasi dengan syntax yang lebih ringkas. Contoh: `$('#greeting').text('Hello')` vs `document.getElementById('greeting').textContent = 'Hello'`.
+
+**Pertanyaan mentor:** "Kenapa Chart.js tetap pakai vanilla JS?"
+**Jawaban:** Chart.js berinteraksi langsung dengan canvas element. `document.getElementById()` sudah cukup dan lebih natural untuk library Chart.js.
 
 ---
 
@@ -94,7 +98,8 @@ function setGreeting() {
     greeting = 'Good Night';
   }
 
-  document.getElementById('greeting').textContent = greeting;
+  // jQuery: mengubah text element
+  $('#greeting').text(greeting);
 }
 ```
 
@@ -106,60 +111,70 @@ function setGreeting() {
 
 ## 4. Looping (Render Skill Cards)
 
-### forEach — render data ke HTML
+### $.each — render data ke HTML
 
 ```javascript
-skillsData.forEach((skill, index) => {
-  const card = document.createElement('div');
-  card.className = 'skill-card ...';
-  card.innerHTML = `...${skill.icon}...${skill.name}...`;
-  container.appendChild(card);
+$.each(skillsData, function (index, skill) {
+  const $card = $('<div>')
+    .addClass('skill-card ...')
+    .html(`...${skill.icon}...${skill.name}...`);
+
+  $container.append($card);
 });
 ```
 
-**Kenapa forEach?** Lebih modern dan readable dibanding `for` loop biasa. Cocok untuk array.
+**Kenapa `$.each`?** jQuery version of `forEach`, syntax lebih ringkas untuk iterasi array.
 
 **Alternatif** (kalau ditanya mentor):
+- `skillsData.forEach()` — vanilla JS ES6
 - `for (let i = 0; i < skillsData.length; i++)` — klasik
 - `for (let skill of skillsData)` — ES6
-- `skillsData.map()` — kalau perlu return array baru
 
 ---
 
-## 5. DOM Manipulation
+## 5. jQuery DOM Manipulation
 
 ### a. Mengubah text element
 ```javascript
-greetingEl.textContent = greeting;       // Set text
+$('#greeting').text(greeting);              // Set text (jQuery)
 ```
 
 ### b. Menambah/menghapus class
 ```javascript
-mobileMenu.classList.toggle('hidden');   // Toggle class
-nameInput.classList.add('form-error');   // Add class
-nameError.classList.remove('visible');   // Remove class
+$mobileMenu.toggleClass('hidden');          // Toggle class
+$nameInput.addClass('form-error');          // Add class
+$nameError.removeClass('visible');          // Remove class
 ```
 
 ### c. Membuat element baru
 ```javascript
-const card = document.createElement('div');
-card.innerHTML = `<h3>${skill.name}</h3>`;
-container.appendChild(card);
+const $card = $('<div>')
+  .addClass('skill-card ...')
+  .html(`<h3>${skill.name}</h3>`);
+$container.append($card);
 ```
 
 ### d. Mengubah style
 ```javascript
-bar.style.width = target + '%';          // Inline style
+$('.skill-bar').css('width', target + '%'); // Inline style (jQuery)
 ```
 
-**Pertanyaan mentor:** "Apa bedanya `textContent` vs `innerHTML`?"
-**Jawaban:** `textContent` — hanya teks, aman dari XSS. `innerHTML` — parse HTML, bisa disisipi tag.
+### e. Selector jQuery
+```javascript
+$('#menu-btn')       // ID selector
+$('.skill-grid')     // Class selector
+$('div')             // Tag selector
+$('#mobile-menu').find('a')  // Descendant selector
+```
+
+**Pertanyaan mentor:** "Apa bedanya jQuery vs vanilla JS?"
+**Jawaban:** jQuery lebih ringkas. `$('#el').text('x')` vs `document.getElementById('el').textContent = 'x'`. Tapi vanilla JS lebih cepat dan tidak perlu library tambahan.
 
 ---
 
-## 6. Event Handling
+## 6. jQuery Event Handling
 
-### Event Listener yang digunakan:
+### Event yang digunakan:
 
 | Event | Elemen | Fungsi |
 |-------|--------|--------|
@@ -171,11 +186,12 @@ bar.style.width = target + '%';          // Inline style
 
 ### Contoh:
 ```javascript
-menuBtn.addEventListener('click', () => {
-  mobileMenu.classList.toggle('hidden');
+// jQuery event binding
+$('#menu-btn').on('click', function () {
+  $mobileMenu.toggleClass('hidden');
 });
 
-form.addEventListener('submit', (e) => {
+$form.on('submit', function (e) {
   e.preventDefault();  // Cegah reload
   // validasi...
 });
@@ -201,6 +217,18 @@ form.addEventListener('submit', (e) => {
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 ```
 
+### Validasi dengan jQuery:
+```javascript
+if ($nameInput.val().trim().length < 3) {
+  $nameInput.addClass('form-error');
+  $nameError.addClass('visible');
+  isValid = false;
+} else {
+  $nameInput.removeClass('form-error');
+  $nameError.removeClass('visible');
+}
+```
+
 **Pertanyaan mentor:** "Apa itu regex?"
 **Jawaban:** Pola untuk mencocokkan teks. `^[^\s@]+@[^\s@]+\.[^\s@]+$` artinya: harus ada karakter sebelum `@`, setelah `@`, dan setelah `.`.
 
@@ -208,7 +236,7 @@ const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 ## 8. Chart.js - Reporting Charts
 
-**Integrasi:** CDN di head (`chart.js`).
+**Integrasi:** CDN di head (`chart.js`). Chart.js tetap pakai vanilla JS untuk akses canvas.
 
 ### 3 Chart Reporting:
 
@@ -251,9 +279,9 @@ Warna pada Stacked Bar dan Polar Area menggunakan array warna yang sudah ditentu
 #### 2. Animation
 Chart.js animation aktif secara default. Setiap kali tombol Refresh diklik, chart di-*update* ulang sehingga animasi berjalan kembali.
 
-#### 3. Programmatic Event Trigger
+#### 3. Programmatic Event Trigger (jQuery)
 ```javascript
-refreshBtn.addEventListener('click', () => {
+$('#refreshDashboard').on('click', function () {
   // Update data stacked bar dengan angka random
   stackedBarChart.data.datasets.forEach(dataset => {
     dataset.data = dataset.data.map(() => Math.floor(20 + Math.random() * 50));
@@ -277,7 +305,7 @@ console.log('Portfolio Owner:', portfolioOwner);
 console.log('Skills count:', skillsData.length);
 console.log('Browser:', navigator.userAgent);
 console.log('Page loaded at:', new Date().toISOString());
-console.log('%c Styled log ', 'background: purple; color: white;');
+console.log('%c Portfolio JS Loaded (jQuery) ', 'background: #a855f7; color: white;');
 ```
 
 ### Cara menggunakan DevTools:
@@ -301,9 +329,9 @@ console.log('%c Styled log ', 'background: purple; color: white;');
 | Variabel & data type | ✅ | Baris 10-45 (`const`, `let`, string, number, boolean, array, object) |
 | Operator | ✅ | Perbandingan (`>=`), logika (`&&`), arithmetic (`length`) |
 | Conditional (if/else) | ✅ | `setGreeting()` — percabangan 4 kondisi waktu |
-| Looping (forEach) | ✅ | `renderSkillBars()` — loop array skills |
-| DOM Manipulation | ✅ | `createElement`, `textContent`, `classList`, `innerHTML`, `style` |
-| Event Listener | ✅ (5) | `click` (menu, refresh), `submit` (form), `change` (input) |
+| Looping (`$.each`) | ✅ | `renderSkillBars()` — loop array skills |
+| jQuery DOM Manipulation | ✅ | `$.text()`, `$.html()`, `$.addClass()`, `$.toggleClass()`, `$.append()`, `$.css()` |
+| jQuery Event Handling | ✅ | `$.on('click')`, `$.on('submit')`, `$.on('change')` |
 | Debugging console.log | ✅ | 6 titik log di berbagai fungsi |
 | Chart.js (3 chart reporting) | ✅ | Bar, Line, Pie — `initCharts()` |
 | Chart.js (dashboard) | ✅ | Stacked Bar, Polar Area — `dashboard.js` |
@@ -312,3 +340,4 @@ console.log('%c Styled log ', 'background: purple; color: white;');
 | Animation Chart | ✅ | Default + trigger ulang via `update()` |
 | Programmatic Event Trigger | ✅ | Tombol Refresh → update data chart |
 | CSS file terpisah | ✅ | `style.css` |
+| jQuery Integration | ✅ | CDN di `<head>`, digunakan untuk DOM & Events |
